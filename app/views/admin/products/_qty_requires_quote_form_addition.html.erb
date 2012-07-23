@@ -1,0 +1,5 @@
+      <%= f.field_container :qty_requires_quote do %>
+        <%= f.label :qty_requires_quote, t("qty_requires_quote")%><br />
+        <%= f.text_field :qty_requires_quote %>
+        <%= f.error_message_on :qty_requires_quote %>
+      <% end %>
