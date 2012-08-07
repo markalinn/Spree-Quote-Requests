@@ -1,0 +1,22 @@
+<h1><%= t(:quote_request) + " #{@quote_request.number}" %></h1>
+
+<% content_for :sidebar do %>
+  <div id="quote_request_tab_summary">
+    <h3 id="quote_request_number"><%= "#{t(:quote_request)} ##{@quote_request.number} " %></h3>
+    <h5 id="quote_request_total"><%= "#{t(:total)}: #{number_to_currency(@quote_request.total)}" %></h5>
+    <br class="clear" />
+  </div>
+  <br class="clear" />
+
+  <ul class="sidebar">
+    <%= hook :admin_quote_request_tabs, {:current => current} do %>
+        <li<%== ' class="active"' if current == "Quote Request Details" %>>
+          <%= link_to t("quote_request_details"), edit_admin_quote_request_url(@quote_request) %>
+        </li>
+        <li<%== ' class="active"' if current == "Customer Details" %>>
+            <%= link_to t("customer_details"), user_admin_quote_request_url(@quote_request) %>
+        </li>
+    <% end %>
+  </ul>
+
+<% end %>

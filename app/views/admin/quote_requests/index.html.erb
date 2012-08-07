@@ -1,0 +1,88 @@
+<div class='toolbar quote_request-links'>
+  <%#= button_link_to t("new_quote_request"), new_admin_quote_request_url, :icon => 'add', :id => 'admin_new_quote_request' %>
+</div>
+
+<%= render :partial => 'admin/shared/quote_request_sub_menu' %>
+
+<h1><%= t("listing_quote_requests") %></h1>
+
+<table class="index" id='listing_quote_requests'>
+  <thead>
+    <tr>
+      <%= hook :admin_quote_requests_index_headers do %>
+        <% if @show_only_completed %>
+          <th><%= sort_link @search, :completed_at, t("activerecord.attributes.quote_request.completed_at") %></th>
+        <% else %>
+          <th><%= sort_link @search, :created_at,   t("quote_request_date") %></th>
+        <% end %>
+        <th><%= sort_link @search, :number,         t("quote_request_number") %></th>
+        <th><%= sort_link @search, :email,          t("customer") %></th>
+        <th><%= sort_link @search, :total,          t("total") %></th>
+      <% end %>
+      <th>
+        <%= hook :admin_quote_requests_index_header_actions %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @quote_requests.each do |quote_request| %>
+    <tr>
+      <%- locals = {:quote_request => quote_request} %>
+      <%= hook :admin_quote_requests_index_rows, locals do %>
+        <td><%= (@show_only_completed ? quote_request.completed_at : quote_request.created_at).to_date %></td>
+        <td><%= link_to quote_request.number, admin_quote_request_path(quote_request) %></td>
+        <td><%= quote_request.email %></td>
+        <td><%= number_to_currency quote_request.total %></td>
+      <% end %>
+      <td class='actions'>
+        <%= hook :admin_quote_requests_index_row_actions, locals do %>
+          <%#= link_to_edit_url edit_admin_quote_request_path(quote_request), :title => "admin_edit_#{dom_id(quote_request)}" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate(@quote_requests, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>
+
+
+<% content_for :sidebar do %>
+<div class="box">
+  <h3><%= t(:search) %></h3>
+  <%= form_for [:admin, @search] do |f| %>
+    <%- locals = {:f => f} %>
+    <%= hook :admin_quote_requests_index_search, locals do %>
+      <label><%= t("date_range") %></label><br />
+      <div class="yui-g date-range-filter">
+        <div class="yui-u sub-field first">
+          <%= f.spree_date_picker :created_at_greater_than %><br />
+          <label class="sub"><%= t("start") %></label>
+        </div>
+        <div class="yui-u sub-field">
+          <%= f.spree_date_picker :created_at_less_than %><br />
+          <label><%= t("stop") %></label>
+        </div>
+      </div>
+
+      <p><label><%= t 'quote_request_number' %></label><br />
+      <%= f.text_field :number_like, :size=>25 %></p>
+
+      <p>
+        <label><%= t 'email' %></label><br />
+        <%= f.text_field :email_like, :size=>25 %>
+      </p>
+      <p>
+      <label><%= t 'first_name_begins_with' %></label><br />
+          <%= f.text_field :bill_address_firstname_starts_with, :size=>25 %>
+      </p>
+      <p>
+        <label><%= t 'last_name_begins_with' %></label><br />
+        <%= f.text_field :bill_address_lastname_starts_with, :size=>25 %>
+      </p>
+    <% end %>
+    <%= hook :admin_quote_requests_index_search_buttons, locals do %>
+      <p><%= button t("search") %></p>
+    <% end %>
+  <% end %>
+</div>
+<% end %>

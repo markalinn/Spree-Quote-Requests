@@ -19,7 +19,6 @@ class QuoteRequest < ActiveRecord::Base
 
   # TODO: validate the format of the email as well (but we can't rely on authlogic anymore to help with validation)
   validates :email, :presence => true, :format => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i, :if => :require_email
-  validate :has_available_shipment
 
   #delegate :ip_address, :to => :checkout
   def ip_address
@@ -116,7 +115,10 @@ class QuoteRequest < ActiveRecord::Base
     true
   end
 
-
+  def allow_cancel?
+    return false unless state != 'canceled'
+    #%w{ready backorder pending}.include? shipment_state
+  end
 
   def add_variant(variant, quantity = 1)
     current_item = contains?(variant)

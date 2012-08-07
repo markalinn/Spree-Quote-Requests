@@ -1,0 +1,31 @@
+<%= csrf_meta_tag %>
+<div class='quote_request-links'>
+  <%= hook :admin_quote_request_edit_buttons do %>
+    <div class='toolbar'>
+      <%= event_links %>
+    </div>
+    <div class='toolbar'>
+      <%= button_link_to(t("resend"), resend_admin_quote_request_url(@quote_request), :method => :post, :icon => 'send-email') if @quote_request.user %>
+    </div>
+  <% end %>
+</div>
+
+<%= render :partial => 'admin/shared/quote_request_tabs', :locals => {:current => "quote_request Details"} %>
+
+<%= hook :admin_quote_request_edit_header do %>
+  <%= render "shared/error_messages", :target => @quote_request %>
+<% end %>
+
+<%= render :partial => "add_product" %>
+
+<%= hook :admin_quote_request_edit_form do %>
+  <div id="quote_request-form-wrapper">
+    <%= render :partial => 'form', :locals => {:quote_request => @quote_request} %>
+  </div>
+<% end %>
+
+<% content_for :head do %>
+  <%= javascript_tag "var expand_variants = true;" %>
+  <%= javascript_include_tag 'admin/quote_requests/edit.js' %>
+  <%= stylesheet_link_tag 'admin/edit_quote_requests.css' %>
+<% end %>

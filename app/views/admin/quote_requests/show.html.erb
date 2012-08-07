@@ -1,0 +1,29 @@
+<div class='toolbar quote_request-links'>
+  <%= hook :admin_quote_request_show_buttons do %>
+    <%= button_link_to t("cancel"), admin_quote_requests_url %>
+    <%#= button_link_to t("cancel"), fire_admin_quote_request_url(@quote_request.number, {:e => "cancel"}), :icon => 'delete', :confirm => t('are_you_sure') %>
+    <%#= button_link_to t("edit"), edit_admin_quote_request_url(@quote_request.number), :icon => 'edit' %>
+  <% end %>
+</div>
+
+<%= render :partial => 'admin/shared/quote_request_tabs', :locals => {:current => "quote_request Details"} %>
+
+<%= hook :admin_quote_request_show_addresses do %>
+  <% if @quote_request.bill_address %>
+    <div class='adr'>
+      <h4><%= t("bill_address") %></h4>
+      <%= render :partial => 'admin/shared/address', :locals => {:address => @quote_request.bill_address} %>
+    </div>
+  <% end %>
+  <% if @quote_request.ship_address %>
+    <div class='adr'>
+      <h4><%= t("ship_address") %></h4>
+      <%= render :partial => 'admin/shared/address', :locals => {:address => @quote_request.ship_address} %>
+    </div>
+    <% end %>
+  <hr />
+<% end %>
+
+<%= hook :admin_quote_request_show_details do %>
+  <%= render :partial => 'admin/shared/quote_request_details', :locals => {:quote_request => @quote_request} %>
+<% end %>
