@@ -3,6 +3,10 @@ class QuoteRequestsController < Spree::BaseController
 
   helper :products
 
+  def new
+    @quote_request = QuoteRequest.new
+    @quote_request.save!
+  end
 
   def show
     @quote_request = QuoteRequest.find_by_number(params[:id])
@@ -18,7 +22,7 @@ class QuoteRequestsController < Spree::BaseController
     end
   end
 
-  # Shows the current incomplete order from the session
+  # Shows the current incomplete quote from the session
   def edit
     @quote_request = current_quote_request(true)
   end
@@ -59,6 +63,6 @@ class QuoteRequestsController < Spree::BaseController
   end
 
   def accurate_title
-    @quote_request && @quote_request.completed? ? "#{QuoteRequest.human_name} #{@quote_request.number}" : I18n.t(:shopping_cart)
+    I18n.t(:quote_request)
   end
 end

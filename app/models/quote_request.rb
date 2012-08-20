@@ -152,7 +152,7 @@ class QuoteRequest < ActiveRecord::Base
   def generate_quote_number
     record = true
     while record
-      random = "R#{Array.new(9){rand(9)}.join}"
+      random = "Q#{Array.new(9){rand(9)}.join}"
       record = self.class.find(:first, :conditions => ["number = ?", random])
     end
     self.number = random if self.number.blank?

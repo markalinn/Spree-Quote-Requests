@@ -11,7 +11,7 @@
         <div id="subtotal">
           <div class="links">
             <%= link_to image_tag('/images/update.png') + t("update"), '#', :class => 'button checkout primary', :onclick => "$('form#updatecart').submit(); return false;" %>
-            <%= link_to image_tag('/images/checkout.png') + t("submit_for_quote"), checkout_path, :class => 'button checkout primary' %>
+            <%= link_to image_tag('/images/checkout.png') + t("submit_for_quote"), new_quote_request_path, :class => 'button checkout primary' %>
           </div>
         </div>
 

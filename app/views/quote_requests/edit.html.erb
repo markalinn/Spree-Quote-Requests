@@ -1,0 +1,21 @@
+<h1><%= t("new_quote_request")%></h1>
+
+<%= form_for(@quote_request) do |f| %>
+	<% if ! current_user %>
+	Please <%= link_to 'login', login_url %> to submit a requiest for quote!
+	<% else %>
+		<h3><%= Address.model_name.human(:count => 2) %></h3>
+		<%= fields_for :bill_address do |ba_form|  %>
+		  <%= render :partial => "address_form", :locals => {:f => ba_form, :name => t('billing_address'), :use_billing => false} %>
+		<% end %>
+		
+		<%= fields_for :ship_address do |sa_form|  %>
+		  <%= render :partial => "address_form", :locals => {:f => sa_form, :name => t('shipping_address'), :use_billing => true} %>
+		<% end %>
+	
+	<p class="form-buttons">
+	  <%= t('continue') %>
+	</p>
+	
+	<% end %>
+<% end %>
