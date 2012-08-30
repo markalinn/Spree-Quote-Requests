@@ -1,11 +1,12 @@
 class QuoteRequestsController < Spree::BaseController
+  
   respond_to :html
 
   helper :products
 
   def new
     @quote_request = QuoteRequest.new
-    @quote_request.save!    
+    @quote_request.save!
   end
 
   def show

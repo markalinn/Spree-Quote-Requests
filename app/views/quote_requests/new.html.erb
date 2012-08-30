@@ -4,6 +4,7 @@
 	<% if ! current_user %>
 	Please <%= link_to 'login', login_url %> to submit a requiest for quote!
 	<% else %>
+<table class="index">
 		<%= fields_for :bill_address do |ba_form|  %>
 		  <%= render :partial => "address_form", :locals => {:f => ba_form, :name => t('billing_address'), :use_billing => false} %>
 		<% end %>
