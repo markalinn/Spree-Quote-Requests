@@ -5,7 +5,7 @@ class QuoteRequestsController < Spree::BaseController
 
   def new
     @quote_request = QuoteRequest.new
-    @quote_request.save!
+    @quote_request.save!    
   end
 
   def show
