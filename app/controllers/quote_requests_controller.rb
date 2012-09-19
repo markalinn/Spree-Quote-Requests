@@ -5,8 +5,11 @@ class QuoteRequestsController < Spree::BaseController
   helper :products
 
   def new
+    session["user_return_to"] = new_quote_request_path
     @quote_request = QuoteRequest.new
-    @quote_request.save!
+    if current_user
+      @quote_request.save!
+    end
   end
 
   def show
