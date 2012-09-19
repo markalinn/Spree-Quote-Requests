@@ -8,7 +8,11 @@
         <div id="subtotal">
           <div class="links">
             <%= link_to image_tag('/images/update.png') + t("update"), '#', :class => 'button checkout primary', :onclick => "$('form#updatecart').submit(); return false;" %>
-            <%= link_to image_tag('/images/checkout.png') + t("submit_for_quote"), new_quote_request_path, :class => 'button checkout primary' %>
+            <% if @order.requires_quote %>
+            	<%= link_to image_tag('/images/checkout.png') + t("submit_for_quote"), new_quote_request_path, :class => 'button checkout primary' %>
+            <% else %>
+            	<%= link_to image_tag('/images/checkout.png') + t("checkout"), checkout_path, :class => 'button checkout primary' %>
+            <% end %>
           </div>
         </div>
 
