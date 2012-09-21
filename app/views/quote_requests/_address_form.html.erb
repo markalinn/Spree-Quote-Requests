@@ -48,17 +48,16 @@
       </td>
       <td colspan="3">
         <span id="<%= name==t('shipping_address') ? "s" : "b" %>state">
-
-              <%= f.text_field :state_name, :class => 'required' %>
+           <%= f.collection_select :state_name, @states, :abbr, :name %>
         </span>
       </td>
       <td class="lbl-col">
         <%= f.label :country_id, t(:country)+':' %>
       </td>
       <td colspan="3">
-      	TEST<%= @country.name %>
         <span id="<%= name==t('shipping_address') ? "s" : "b" %>country">
-        	<%= f.collection_select :country_id, available_countries, :id, :name, {}, {:style => 'width:150px;'} %>
+	      	<%= @country.name %>
+	        <%= f.hidden_field :country_id, :value => @country.id %>
         </span>
       </td>
     </tr>
