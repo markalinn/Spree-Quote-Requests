@@ -17,7 +17,6 @@
         <% end %>
         <th><%= sort_link @search, :number,         t("quote_request_number") %></th>
         <th><%= sort_link @search, :email,          t("customer") %></th>
-        <th><%= sort_link @search, :total,          t("total") %></th>
       <% end %>
       <th>
         <%= hook :admin_quote_requests_index_header_actions %>
@@ -32,7 +31,6 @@
         <td><%= (@show_only_completed ? quote_request.completed_at : quote_request.created_at).to_date %></td>
         <td><%= link_to quote_request.number, admin_quote_request_path(quote_request) %></td>
         <td><%= quote_request.email %></td>
-        <td><%= number_to_currency quote_request.total %></td>
       <% end %>
       <td class='actions'>
         <%= hook :admin_quote_requests_index_row_actions, locals do %>

@@ -1,14 +1,8 @@
-<h1><%= accurate_title %></h1>
+<h1>Quote: <%= @quote_request.number %></h1>
 
-<div id="order">
-  <% if params.has_key? :checkout_complete %>
-  	<h3><%= t('thank_you_for_your_order') %></h3>
-  <% end %>
-  <%= render :partial => 'shared/order_details', :locals => {:order => @order} %>
+<div id="quote">
+  <h3><%= t('thank_you_for_quote') %></h3>
   <p>
     <%= link_to t('back_to_store'), root_path %>
-    <% unless params.has_key? :checkout_complete %>
-    	| <%= link_to t('my_account'), account_path if current_user%>
-    <% end %>
   </p>
 </div>

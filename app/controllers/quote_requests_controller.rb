@@ -7,8 +7,26 @@ class QuoteRequestsController < Spree::BaseController
   def new
     session["user_return_to"] = new_quote_request_path
     @quote_request = QuoteRequest.new
-    if current_user
-      @quote_request.save!
+    @quote_request.bill_address = Address.new
+    @quote_request.ship_address = Address.new
+  end
+
+  def create
+    @quote_request = QuoteRequest.new(params[:quote_request])
+
+    respond_to do |format|
+      if @quote_request.save
+        #Copy across the line items from the current order
+        current_order.line_items.each do |line_item|
+          quote_line_item = @quote_request.quote_line_items.new
+          quote_line_item.variant_id = line_item.variant_id
+          quote_line_item.quantity = line_item.quantity
+          quote_line_item.save
+        end
+        format.html { redirect_to(quote_request_url(@quote_request.number)) }
+      else
+        format.html { render :action => "new" }
+      end
     end
   end
 
@@ -17,12 +35,13 @@ class QuoteRequestsController < Spree::BaseController
   end
 
   def update
-    @quote_request = current_quote_request
-    if @quote_request.update_attributes(params[:quote_request])
-      @quote_request.line_items = @quote_request.line_items.select {|li| li.quantity > 0 }
-      respond_with(@quote_request) { |format| format.html { redirect_to cart_path } }
-    else
-      respond_with(@quote_request) 
+    @quote_request = QuoteRequest.find_by_number(params[:id])
+    respond_to do |format|
+      if @quote_request.update_attributes(params[:quote_request])
+        format.html { redirect_to(quote_request_path(@quote_request.number)) }
+      else
+        format.html { render :action => "new" }
+      end
     end
   end
 

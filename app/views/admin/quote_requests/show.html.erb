@@ -6,7 +6,7 @@
   <% end %>
 </div>
 
-<%= render :partial => 'admin/shared/quote_request_tabs', :locals => {:current => "quote_request Details"} %>
+<%#= render :partial => 'admin/shared/quote_request_tabs', :locals => {:current => "quote_request Details"} %>
 
 <%= hook :admin_quote_request_show_addresses do %>
   <% if @quote_request.bill_address %>

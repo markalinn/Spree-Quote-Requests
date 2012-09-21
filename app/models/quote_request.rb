@@ -183,8 +183,8 @@ class QuoteRequest < ActiveRecord::Base
 
   private
   def create_user
+    self.user = User.current
     self.email = user.email if self.user and not user.anonymous?
-    self.user ||= User.anonymous!
   end
 
   # Updates the following Order total values:

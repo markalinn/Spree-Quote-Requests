@@ -1,5 +1,7 @@
 <h1><%= t("new_quote_request")%></h1>
 
+<%= render "shared/error_messages", :target => @quote_request %>
+
 <%= form_for(@quote_request) do |f| %>
 	<% if ! current_user %>
 	Please <%= link_to 'login', login_url %> to submit a requiest for quote!
