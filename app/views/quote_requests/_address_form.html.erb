@@ -56,6 +56,7 @@
         <%= f.label :country_id, t(:country)+':' %>
       </td>
       <td colspan="3">
+      	TEST<%= @country.name %>
         <span id="<%= name==t('shipping_address') ? "s" : "b" %>country">
         	<%= f.collection_select :country_id, available_countries, :id, :name, {}, {:style => 'width:150px;'} %>
         </span>
