@@ -10,7 +10,7 @@ class QuoteRequestsController < Spree::BaseController
     @quote_request.bill_address = Address.new
     @quote_request.ship_address = Address.new
     @country = Country.find(Spree::Config[:default_country_id]) rescue Spree::Country.first
-    @states = @country.states.all
+    @states = @country.states.all(:order => 'name')
   end
 
   def create
