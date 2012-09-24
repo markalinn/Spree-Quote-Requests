@@ -4,7 +4,7 @@
 
 <%= form_for(@quote_request) do |f| %>
 	<% if ! current_user %>
-	Please <%= link_to 'login', login_url %> to submit a requiest for quote!
+	Please <%= link_to 'login', login_url %> to submit a request for quote!
 	<% else %>
 		<h3><%= Address.model_name.human(:count => 2) %></h3>
 		<%= fields_for :bill_address do |ba_form|  %>
