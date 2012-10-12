@@ -15,6 +15,8 @@ class QuoteRequestsController < Spree::BaseController
 
   def create
     @quote_request = QuoteRequest.new(params[:quote_request])
+    @country = Country.find(Spree::Config[:default_country_id]) rescue Spree::Country.first
+    @states = @country.states.all(:order => 'name')
 
     respond_to do |format|
       if @quote_request.save
