@@ -11,7 +11,7 @@
       <tr>
         <%- locals = {:item => item} %>
         <%= hook :quote_request_details_line_item_row, locals do %>
-          <td width="300"><%=item.variant.product.name%> <%= "(" + variant_options(item.variant) + ")" unless item.variant .option_values.empty? %></td>
+          <td width="300"><%=item.variant.product.sku%> - <%=item.variant.product.name%> <%= "(" + variant_options(item.variant) + ")" unless item.variant .option_values.empty? %></td>
           <td class="qty"><%=item.quantity%></td>
         <% end %>
       </tr>
