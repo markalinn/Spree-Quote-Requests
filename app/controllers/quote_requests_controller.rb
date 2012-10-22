@@ -29,7 +29,7 @@ class QuoteRequestsController < Spree::BaseController
         end
         format.html { redirect_to(quote_request_url(@quote_request.number)) }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "edit" }
       end
     end
   end
