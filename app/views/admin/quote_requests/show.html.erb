@@ -8,6 +8,15 @@
 
 <%#= render :partial => 'admin/shared/quote_request_tabs', :locals => {:current => "quote_request Details"} %>
 
+<div class='adr'>
+  <h4><%= t("project_info") %></h4>
+	<p>
+	  Name: <%= @quote_request.project %><br/>
+	  Starts: <%= @quote_request.project_start_date %><br/>
+	  Duration: <%= @quote_request.project_duration_in_days %> days<br/>
+	</p>
+</div>
+
 <%= hook :admin_quote_request_show_addresses do %>
   <% if @quote_request.bill_address %>
     <div class='adr'>
