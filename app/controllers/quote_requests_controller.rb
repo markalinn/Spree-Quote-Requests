@@ -27,6 +27,8 @@ class QuoteRequestsController < Spree::BaseController
           quote_line_item.quantity = line_item.quantity
           quote_line_item.save
         end
+        QuoteMailer.confirm_email(@quote_request).deliver
+        
         format.html { redirect_to(quote_request_url(@quote_request.number)) }
       else
         format.html { render :action => "edit" }

@@ -1,0 +1,13 @@
+Dear Customer,
+
+We will be contacting you shortly regarding the items you have requested a quote.
+
+============================================================
+Items
+============================================================
+<% for item in @quote_request.quote_line_items %>
+<%=item.variant.sku %> - <%=item.variant.product.name%> <%= variant_options(item.variant) %> (<%=item.quantity%>)
+<% end %>
+============================================================
+
+Thank you for your business.

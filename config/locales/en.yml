@@ -9,3 +9,6 @@ en:
   submit_for_quote: "Submit For Quote"
   thank_you_for_quote: "Thank you for submitting a request for a quote!"
   project_info: "Project Information"
+  quote_mailer:
+    confirm_email:
+      subject:  "Quote Confirmation"
